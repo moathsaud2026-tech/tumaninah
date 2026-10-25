@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طمأنينة - تطبيق إسلامي</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Quran / Ayah Section */
+        .ayah-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+        }
+
+        .ayah-source {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Tasbih Section */
+        .tasbih-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--text-main);
+            margin: 15px 0;
+        }
+
+        .tasbih-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            transition: transform 0.1s ease, background-color 0.2s;
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tasbih-btn:active {
+            transform: scale(0.92);
+            background-color: var(--primary-hover);
+        }
+
+        .tasbih-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            gap: 10px;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--text-main);
+        }
+
+        select {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        /* Adhkar Section */
+        .adhkar-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .adhkar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>طمأنينة</h1>
+        <p>ألا بذكر الله تطمئن القلوب</p>
+    </header>
+
+    <div class="container">
+        <!-- Quran Section -->
+        <div class="card">
+            <h2>📖 آية من الكتاب</h2>
+            <p class="ayah-text" id="ayahText">"رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَتَوَفَّنَا مُسْلِمِينَ"</p>
+            <p class="ayah-source" id="ayahSource">[سورة الأعراف: 126]</p>
+        </div>
+
+        <!-- Tasbih Section -->
+        <div class="card">
+            <h2>📿 الـسّـبـحـة الإلكترونية</h2>
+            <select id="tasbihType" onchange="resetTasbih()">
+                <option value="سُبْحَانَ اللَّهِ">سُبْحَانَ اللَّهِ</option>
+                <option value="الْحَمْدُ لِلَّهِ">الْحَمْدُ لِلَّهِ</option>
+                <option value="لَا إِلَهَ إِلَّا اللَّهُ">لَا إِلَهَ إِلَّا اللَّهُ</option>
+                <option value="اللَّهُ أَكْبَرُ">اللَّهُ أَكْبَرُ</option>
+                <option value="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</option>
+            </select>
+            <div class="tasbih-display" id="counter">0</div>
+            <button class="tasbih-btn" onclick="incrementTasbih()">سبّح</button>
+            <div class="tasbih-controls">
+                <button class="btn-secondary" onclick="resetTasbih()">تصفير</button>
+            </div>
+        </div>
+
+        <!-- Adhkar Section -->
+        <div class="card">
+            <h2>✨ الأذكار اليومية</h2>
+            <p class="adhkar-text" id="adhkarText">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</p>
+            <div class="adhkar-nav">
+                <button class="btn-secondary" onclick="nextAdhkar()">التالي</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        تم التطوير بكل حب 🤍
+    </footer>
+
+    <!-- Audio feedback using Web Audio API (No external files needed) -->
+    <script>
+        let count = 0;
+        const counterDisplay = document.getElementById('counter');
+        
+        function playClickSound() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(600, audioCtx.currentTime); // صَوْت ناعم وهادئ
+                oscillator.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.05);
+                
+                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.05);
+            } catch (e) {
+                // تجاهل خطأ المتصفح إن وجد
+            }
+        }
+
+        function incrementTasbih() {
+            count++;
+            counterDisplay.textContent = count;
+            playClickSound();
+        }
+
+        function resetTasbih() {
+            count = 0;
+            counterDisplay.textContent = count;
+        }
+
+        // عينة أذكار للتنقل البسيط
+        const adhkarList = [
+            "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",
+            "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
+            "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+            "اللَّهُمَّ صَلِّ وَسَلَّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
+            "رَبِّ اغْفِر لي وَتُبْ عَلَيَّ إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ"
+        ];
+        let adhkarIndex = 0;
+
+        function nextAdhkar() {
+            adhkarIndex = (adhkarIndex + 1) % adhkarList.length;
+            document.getElementById('adhkarText').textContent = adhkarList[adhkarIndex];
+        }
+    </script>
+</body>
+</html>
